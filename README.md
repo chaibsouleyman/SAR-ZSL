@@ -3,7 +3,7 @@
 Code for paper "Zero-shot Learning for SAR Target Recognition".
 
 ## author
-Qian Song[https://github.com/QianSong-Cherry/]
+[Qian Song](https://github.com/QianSong-Cherry/)
 
 ## usage
 `python main.py`
