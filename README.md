@@ -6,9 +6,9 @@ Code for paper "Zero-shot Learning for SAR Target Recognition".
 Qian Song[https://github.com/QianSong-Cherry/]
 
 ## usage
-'python main.py'
+`python main.py`
 
 ## Note
--Datasets can be downloaded from MSTAR website.
+--Datasets can be downloaded from MSTAR website.
 
 
