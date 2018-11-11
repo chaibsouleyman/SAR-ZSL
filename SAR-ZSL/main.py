@@ -5,7 +5,6 @@
 
 from __future__ import division
 import time
-import scipy.io
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
 import numpy as np
@@ -140,4 +139,4 @@ else:
     batch_data = data_test[(ind+1)*Batch_Size:]
     batch_data.shape = -1,img_size,img_size,1
     test_pred[(ind+1)*Batch_Size:] = sess.run(predict, feed_dict={input_image: batch_data})
-    scipy.io.savemat('./result/pred.mat', {'label_test': label_test, 'label_pred': test_pred})
+    sio.savemat('./result/pred.mat', {'label_test': label_test, 'label_pred': test_pred})
