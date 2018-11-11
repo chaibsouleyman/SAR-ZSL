@@ -124,34 +124,7 @@ if is_training:
             cnt+=1
             print("Epoch:%d || Batch:%d || Mean Loss:%.4f || Acc:%.4f || Cost Time:%.2f"%(epoch, ind, np.mean(g_loss[np.where(g_loss)]),acc_batch[cnt-1],time.time()-st))
 
-        loss_epoch[epoch] = np.mean(g_loss[np.where(g_loss)])
         saver.save(sess, "checkpoint/model.ckpt")
-
-        loss_test = np.zeros([len(data_test)])
-        acc_test = np.zeros([len(data_test)])
-        for ind in range(len(data_test) // Batch_Size):
-            batch_data = data_test[ind * Batch_Size:(ind + 1) * Batch_Size]
-            batch_data.shape = -1, img_size, img_size, 1
-            batch_label = label_test[ind * Batch_Size:(ind + 1) * Batch_Size]
-            loss_test[ind * Batch_Size:(ind + 1) * Batch_Size], acc_test[
-                                                                ind * Batch_Size:(ind + 1) * Batch_Size] = sess.run(
-                [G_loss, acc], feed_dict={input_image: batch_data, label: batch_label})
-        batch_data = data_test[(ind + 1) * Batch_Size:]
-        batch_data.shape = -1, img_size, img_size, 1
-        batch_label = label_test[(ind + 1) * Batch_Size:]
-        loss_test[(ind + 1) * Batch_Size:], acc_test[(ind + 1) * Batch_Size:] = sess.run([G_loss, acc], feed_dict={
-            input_image: batch_data, label: batch_label})
-        loss_test_epoch[epoch] = np.mean(loss_test[0:test_size])
-        loss_T72_epoch[epoch] = np.mean(loss_test[test_size:])
-        acc_test_epoch[epoch] = np.mean(acc_test[0:test_size])
-        acc_T72_epoch[epoch] = np.mean(acc_test[test_size:])
-        print("Loss of Test: %.6f" % loss_test_epoch[epoch])
-        print("Loss of T72: %.6f" % loss_T72_epoch[epoch])
-        print("accuracy of Test: %.6f" % acc_test_epoch[epoch])
-        print("accuracy of T72: %.6f" % acc_T72_epoch[epoch])
-
-    scipy.io.savemat('./result/g_loss.mat', {'loss_batch': loss_batch, 'loss_epoch': loss_epoch, 'loss_test_epoch': loss_test_epoch,
-    'acc_batch': acc_batch, 'acc_T72_epoch':acc_T72_epoch, 'acc_test_epoch': acc_test_epoch})
 
 else:
     # load data
