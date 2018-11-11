@@ -43,7 +43,7 @@ def get_weight_bias(vgg_layers, i):
 def build_vgg19(input, reuse=False):
     if reuse:
         tf.get_variable_scope().reuse_variables()
-    vgg_rawnet = scipy.io.loadmat('data/imagenet-vgg-verydeep-19-SQ.mat')
+    vgg_rawnet = sio.loadmat('data/imagenet-vgg-verydeep-19-SQ.mat')
     vgg_layers = vgg_rawnet['layers'][0]
     conv1_1 = build_net('conv', input, get_weight_bias(vgg_layers, 0), name='vgg_conv1_1')
     conv1_2 = build_net('conv', conv1_1, get_weight_bias(vgg_layers, 2), name='vgg_conv1_2')
@@ -127,7 +127,7 @@ if is_training:
 
 else:
     # load data
-    data_test, label_test = load_data()
+    data_test, label_test = load_test_data()
 
     # load saved model
     saver.restore(sess, "checkpoint/model.ckpt")
